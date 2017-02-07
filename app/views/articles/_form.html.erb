@@ -1,0 +1,25 @@
+<%= form_for(@article) do |f| %>
+<div class="form-group">
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title, class: "form-control"  %>
+</div>
+<div class="form-group">
+  <%= f.label :content, "Content" %>
+  <div id="editor">
+  </div>
+
+  <%= f.text_area :content, class: "form-control", style: "display: none;" %>
+</div>
+<%= f.submit class: "btn btn-primary" %>
+<% end %>
+<script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/solarized_light");
+  editor.getSession().setMode("ace/mode/markdown");
+  editor.getSession().setUseWrapMode(true);
+  editor.setValue('<%= @article.content %>');
+  editor.on("change", function() {
+    $('textarea').val(editor.getValue());
+  });
+</script>

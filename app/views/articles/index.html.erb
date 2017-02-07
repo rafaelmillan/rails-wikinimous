@@ -1,0 +1,12 @@
+<h1>Wikihipster</h1>
+
+<p><%= link_to "New article", new_article_path %></p>
+
+<div class="list-group">
+  <% @articles.each do |article| %>
+  <a href="<%= article_path(article) %>" class="list-group-item">
+    <h4 class="list-group-item-heading"><%= article.title %></h4>
+    <p class="list-group-item-text"><%= Kramdown::Document.new(article.content.truncate(270)).to_html.html_safe %></p>
+  </a>
+  <% end %>
+</div>
